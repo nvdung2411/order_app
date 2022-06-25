@@ -1,0 +1,165 @@
+<section class="home">
+
+   <div class="swiper home-slider">
+
+      <div class="swiper-wrapper">
+
+         <div class="swiper-slide slide">
+            <div class="content">
+               <span>order online</span>
+               <h3>delicious pizza</h3>
+               <a href='<%=  items_path %>' class="btn">see menus</a>
+            </div>
+            <div class="image">
+                <%= image_tag("home-img-1.png", alt: "") %>
+            </div>
+         </div>
+
+         <div class="swiper-slide slide">
+            <div class="content">
+               <span>order online</span>
+               <h3>double hamburger</h3>
+               <a href='<%=  items_path %>' class="btn">see menus</a>
+            </div>
+            <div class="image">
+               <%= image_tag("home-img-2.png", alt: "") %>
+            </div>
+         </div>
+
+         <div class="swiper-slide slide">
+            <div class="content">
+               <span>order online</span>
+               <h3>roasted chicken</h3>
+               <a href='<%=  items_path %>' class="btn">see menus</a>
+            </div>
+            <div class="image">
+               <%= image_tag("home-img-3.png", alt: "") %>
+            </div>
+         </div>
+
+      </div>
+
+      <div class="swiper-pagination"></div>
+
+   </div>
+
+</section>
+
+<!-- category -->
+<section class="category">
+
+   <h1 class="title">food category</h1>
+
+   <div class="box-container">
+
+      <a href="<%=  items_path(category:'food') %>" class="box">
+         <%= image_tag("cat-1.png", alt: "") %>
+         <h3>fast food</h3>
+      </a>
+
+      <a href="category.html" class="box">
+         <%= image_tag("cat-2.png", alt: "") %>
+         <h3>main dishes</h3>
+      </a>
+
+      <a href="<%=  items_path(category:'drinks')%> "class="box">
+         <%= image_tag("cat-3.png", alt: "") %>
+         <h3>drinks</h3>
+      </a>
+
+      <a href="category.html" class="box">
+        <div class="image">
+          <%= image_tag("cat-4.png", alt: "") %>
+          </div>
+         <h3>desserts</h3>
+      </a>
+
+   </div>
+
+</section>
+
+<section class="products">
+
+   <h1 class="title">latest dishes</h1>
+
+   <div class="box-container">
+    <% @items.each do |item| %>
+      <form accept="" method="post" class="box">
+         <a href="quick_view.html" class="fas fa-eye"></a>
+         <button class="fas fa-shopping-cart" type="submit" name="add_to_cart">
+          </button>
+          <%= image_tag item.item_img.url(:item_index) %>
+
+         <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+          </div>
+          <div class="name"><%= item.name %></div>
+         <div class="flex">
+            <div class="price"><%= item.price %>.000đ</div>
+            <input type="number" name="qty" class="qty" min="1" max="99" value="1"
+             onkeypress="if(this.value.length == 2) return false;">
+         </div>
+      </form>
+    <% end %>
+
+   </div>
+
+   <div class="more-btn">
+      <a href="<%=  items_path %>" class="btn">veiw all</a>
+   </div>
+
+</section>
+
+<footer class="footer">
+
+   <section class="box-container">
+
+      <div class="box">
+         <%= image_tag"email-icon.png" %>
+         <h3>our email</h3>
+         <a href="mailto:abc@gmail.com.com">abc@gmail.com</a>
+      </div>
+
+      <div class="box">
+         <%= image_tag "clock-icon.png" %>
+         <h3>opening hours</h3>
+         <p>00:07am to 00:10pm </p>
+      </div>
+
+      <div class="box">
+         <%= image_tag "map-icon.png"%>
+         <h3>our address</h3>
+         <a href="https://www.google.com/maps">RichyTower, 35 MacThaiTo</a>
+      </div>
+
+      <div class="box">
+         <%= image_tag "phone-icon.png" %>
+         <h3>our number</h3>
+         <a href="tel:1234567890">+123-456-7890</a>
+      </div>
+
+   </section>
+
+   <div class="credit">&copy; copyright @ 2022 by <span> Dung Sama </span> | all rights reserved!</div>
+
+</footer>
+
+<script src="js/script.js"></script>
+
+<script>
+
+var swiper = new Swiper(".home-slider", {
+   loop:true,
+   grabCursor:true,
+   effect: "flip",
+   pagination: {
+      el: ".swiper-pagination",
+      clickable:true,
+   },
+});
+
+</script>

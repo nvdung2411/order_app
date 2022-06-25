@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_22_030613) do
+ActiveRecord::Schema.define(version: 2022_06_22_164217) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -28,6 +28,10 @@ ActiveRecord::Schema.define(version: 2022_06_22_030613) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
     t.integer "category_id"
+    t.string "item_img_file_name"
+    t.string "item_img_content_type"
+    t.bigint "item_img_file_size"
+    t.datetime "item_img_updated_at"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|

@@ -11,6 +11,9 @@ gem 'jquery-rails'
 gem 'devise', '~> 4.8', '>= 4.8.1'
 gem 'figaro', '~> 1.2'
 gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
+gem 'paperclip', '~> 6.1'
+gem 'ransack'
+gem 'will_paginate', '~> 3.3'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.4.4'
 # Use Puma as the app server

@@ -1,21 +1,37 @@
 class ItemsController < ApplicationController
   before_action :find_item, only: [:show, :edit, :update, :destroy]
+  require 'will_paginate/array'
+
   def index
-    @items = Item.all
+
+    if params[:category].blank?
+      @items = Item.all.order("created_at DESC")
+
+    else
+      @category_id = Category.find_by(name: params[:category]).id
+      @items = Item.where(:category_id => @category_id).order("created_at DESC")
+    end
+
+
+  end
+
+  def home
+  	@items = Item.first(6)
+
   end
 
   def show
-    @item = Item.find_by(params[:id])
   end
 
 
   def new
     @item = Item.new
-    @categories = Category.all.map{ |c| [c.name, c.id] }
+    @categories = Category.pluck(:name, :id)
   end
 
   def create
     @item = Item.new(item_params)
+    @categories = Category.pluck(:name, :id)
     @item.category_id = params[:category_id]
 
     if @item.save
@@ -26,10 +42,11 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    @categories = Category.pluck(:name, :id)
   end
 
   def update
-    @item.category_id = params[:category_id]
+    @item.category_id = params[:item][:category_id]
     if @item.update(item_params)
       redirect_to item_path(@item)
     else
@@ -44,13 +61,13 @@ class ItemsController < ApplicationController
 
   private
 
-    def item_params
-      params.require(:item).permit(:name, :description, :category, :price)
-    end
+  def item_params
+    params.require(:item).permit(:name, :description, :category, :price, :item_img)
+  end
 
-    def find_item
-      @item = Item.find(params[:id])
-    end
+  def find_item
+    @item = Item.find(params[:id])
+  end
 
 
 end

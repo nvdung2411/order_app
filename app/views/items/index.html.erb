@@ -1,5 +1,28 @@
-<% @items.each do |item| %>
-  <h2><%= link_to item.name, item_path(item)  %></h2>
-<% end %>
 
+<% if @items.count == 0 %>
+
+<h1> No items </h1>
+
+<% else %>
+<section class="speciality" id="speciality">
+
+  <h1 class="heading"> our <span>speciality</span> </h1>
+  <div class="box-container">
+    <% @items.each do |item| %>
+    <div class="box">
+      <a href="/items/<%= item.id %>">
+        <%= image_tag item.item_img.url(:item_index), class: "image" %>
+      </a>
+      <div class="content">
+        <h3><%= item.name %></h3>
+        <h4> <%= item.description %></h4>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas accusamus tempore temporibus rem amet laudantium animi optio voluptatum. Natus obcaecati unde porro nostrum ipsam itaque impedit incidunt rem quisquam eos!</p>
+      </div>
+    </div>
+    <% end %>
+
+  </div>
+  <% end %>
 <%= link_to "Add Item", new_item_path %>
+</section>
+
