@@ -1,2 +1,14 @@
-<h2>Edit</h2>
-<%= render 'form' %>
+<div class="col-md-6 col-md-offset-3">
+
+  <div class="signup-form">
+    <h2>Edit Item</h2>
+    <%= simple_form_for @item, :html => { :multipart => true } do |f| %>
+      <%= f.select :category_id, @categories %>
+      <%= f.file_field :item_img %>
+      <%= f.input :name, label: "Item Name" %>
+      <%= f.input :description %>
+      <%= f.input :price %>
+      <%= f.button :submit %>
+    <% end %>
+  </div>
+</div>
