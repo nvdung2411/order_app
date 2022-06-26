@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   resources :items
   get 'home', to: 'items#home'
   get 'search', to: 'items#search'
+  get 'about', to: 'items#about'
 end
 

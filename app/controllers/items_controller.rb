@@ -20,7 +20,9 @@ class ItemsController < ApplicationController
 
   def home
     @items = Item.first(6)
+  end
 
+  def about
   end
 
   def search
