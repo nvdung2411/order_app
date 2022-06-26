@@ -1,0 +1,9 @@
+<section class="search-form">
+  <%= search_form_for @search, url: items_path, local: true, method: "get" do |f| %>
+  <form action="Search">
+    <%= f.text_field :name_or_description_cont %>
+    <button type="submit" class="fas fa-search"></button>
+  </form>
+<% end %>
+</section>
+

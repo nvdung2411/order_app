@@ -9,19 +9,27 @@ class ItemsController < ApplicationController
     else
       @category_id = Category.find_by(name: params[:category]).id
       @items = Item.where(:category_id => @category_id).order("created_at DESC")
-
     end
-
+    @search = Item.ransack(params[:q])
+    @items = @search.result.paginate(page: params[:page],  per_page: 6)
+    if params[:q].present?
+      @search = Item.ransack(params[:q])
+      @items = @search.result.paginate(page: params[:page],  per_page: 6)
+    end
   end
 
   def home
-  	@items = Item.first(6)
+    @items = Item.first(6)
 
+  end
+
+  def search
+    @search = Item.ransack(params[:q])
+    @items = @search.result.paginate(page: params[:page],  per_page: 6)
   end
 
   def show
   end
-
 
   def new
     @item = Item.new
@@ -67,6 +75,5 @@ class ItemsController < ApplicationController
   def find_item
     @item = Item.find(params[:id])
   end
-
 
 end

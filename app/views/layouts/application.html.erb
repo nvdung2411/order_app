@@ -18,7 +18,7 @@
       <a href="home.html" class="logo">Food & Drinks 😋</a>
 
       <nav class="navbar">
-         <a href="<%=  home_path %>">home</a>
+         <a href="<%= home_path %>">home</a>
          <a href="#">about</a>
          <a href="<%= items_path %>">menu</a>
          <a href="#">orders</a>
@@ -31,7 +31,7 @@
       </nav>
 
       <div class="icons">
-         <a href="search.html"><i class="fas fa-search"></i></a>
+         <a href="<%= search_path %>"><i class="fas fa-search"></i></a>
          <a href="cart.html"><i class="fas fa-shopping-cart"></i><span>(3)</span></a>
          <div id="user-btn" class="fas fa-user"></div>
          <div id="menu-btn" class="fas fa-bars"></div>
@@ -49,9 +49,9 @@
    </section>
 
 </header>
+
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
-
 
 <%= yield %>
 </body>

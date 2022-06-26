@@ -1,8 +1,10 @@
+
 <section class="products">
 
    <h1 class="title">latest dishes</h1>
 
    <div class="box-container">
+
     <% @items.each do |item| %>
       <form accept="" method="post" class="box">
          <a href="quick_view.html" class="fas fa-eye"></a>
@@ -30,3 +32,4 @@
 </section>
 
 <p><%= will_paginate @items %></p>
+ <%= render 'footer' %>
