@@ -1,0 +1,25 @@
+<div class="cart-total">
+      <p>grand total : <%= current_order.subtotal %></p>
+      <a href="<%= checkout_path %>"class="btn">checkout orders</a>
+      </div>
+</div>
+
+  <% @order_items.each do |product| %>
+    <div class="box-container">
+      <div class="box">
+      <a href="#" class="fas fa-eye"></a>
+
+            <div class="name"><%= product.item.name%></div>
+
+            <%= form_with model: product do |f|%>
+            <div class="flex">
+            <div class="price">$<%= product.item.price %></div>
+            <%= f.hidden_field :item_id, value: product.item.id %>
+            <%= f.number_field :quantity, value: product.quantity, class:"qty" %>
+            <button type="submit" class="fas fa-edit"></button>
+            </div>
+            <%= link_to "Remove Items", product, method: :delete, remote: true %>
+        <% end%>
+        <div class="sub-total">sub total : <%= product.total %></div>
+      <% end%>
+    </div>

@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   belongs_to :category
+  has_many :order_items
   validates :name, :description, :price, :category_id, presence: true
 
   has_attached_file :item_img, :styles => { :item_index => "250x350>",
