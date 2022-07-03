@@ -1,0 +1,38 @@
+<% if @order_items.any? %>
+
+<div class="heading">
+ <h3>your orders</h3>
+ <p><a href="<%= checkout_path%>">checkout cart </a> <span> / orders</span></p>
+</div>
+
+<section class="orders">
+
+  <h1 class="title">placed orders</h1>
+
+  <div class="box-container">
+
+    <div class="box">
+      <p> placed on : <span><%= current_user.created_at%></span></p>
+      <p> name : <span><%= current_user.name %></span> </p>
+      <p> number : <span><%= current_user.phone %></span> </p>
+      <p> email : <span><%= current_user.email %></span> </p>
+      <p> address : <span><%= current_user.delivery_address %></span></p>
+      <p>your orders :
+
+        <% @order_items.each do |product| %>
+        <span>
+          <%= product.item.name%>0
+          <%=  product.quantity %>
+          (<%=  product.total %>) - </span>
+          <% end%>
+
+          <p> total price : <span><%= @order.subtotal %>$/-</span> </p>
+          <p> payment method : <span>cash on delivery</span> </p>
+          <p> status : <span style="color:red;"><%= @order.status %></span> </p>
+          <%= link_to "Cancelled", destroy_path,
+          method: :delete, data: { confirm: "Are you sure?" },
+          class: "btn btn-custom" if @order.status == 'Unconfirmed'%>
+        </div>
+      </div>
+    </section>
+<% end %>

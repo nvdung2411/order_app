@@ -3,6 +3,8 @@ class OrderItemsController < ApplicationController
 
   def create
     @order_item = @order.order_items.new(order_params)
+    @order_item.user_id = current_user.id
+    @order.user_id = current_user.id
     @order.save
     session[:order_id] = @order.id
   end
@@ -22,7 +24,7 @@ class OrderItemsController < ApplicationController
   private
 
   def order_params
-    params.require(:order_item).permit(:item_id, :quantity)
+    params.require(:order_item).permit(:item_id, :quantity, :user_id)
   end
 
   def set_order

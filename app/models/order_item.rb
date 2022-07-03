@@ -1,4 +1,5 @@
 class OrderItem < ApplicationRecord
+	enum status: { In_Progress: 0, Unconfirmed: 1, Placed: 2, Cancelled: 3 }
   belongs_to :item
   belongs_to :order
   before_save :set_unit_price

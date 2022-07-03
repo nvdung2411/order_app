@@ -1,14 +1,23 @@
 Rails.application.routes.draw do
 
-	root 'items#home'
+  root 'homepage#home'
   resources :order_items
   devise_for :users
-  resources :items
-  get 'home', to: 'items#home'
+
+  namespace :admin do
+    resources :items
+    get 'order', to: 'manage#order'
+    get 'manage_user', to: 'manage#manage_user'
+  end
+
+  resources :items, only: [:index, :show]
+  get 'home', to: 'homepage#home'
   get 'search', to: 'items#search'
-  get 'about', to: 'items#about'
+  get 'about', to: 'homepage#about'
   get 'cart', to: 'cart#show'
   get 'checkout', to: 'cart#checkout'
-
+  get 'order', to: 'cart#order'
+  get 'profile', to: 'user#profile'
+  delete 'destroy', to: 'cart#destroy'
+  get 'update_status/:id', to: 'cart#update_status', as: 'confirm_order'
 end
-

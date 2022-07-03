@@ -1,0 +1,31 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">STT</th>
+      <th scope="col">placed on</th>
+      <th scope="col">Name</th>
+      <th scope="col">Emai</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Delivery Address</th>
+      <th scope="col">Items</th>
+    </tr>
+  </thead>
+
+  <% @order_items.each_with_index do |order_item, index| %>
+    <% user = User.find(order_item.user_id) %>
+  <tbody><tr>
+    <th scope="row"><%= index + 1 %></th>
+    <td><%= user.created_at %></td>
+    <td><%= user.name %></td>
+    <td><%= user.email %></td>
+    <td><%= user.phone %></td>
+    <td><%= user.delivery_address %></td>
+    <td><span>
+      <%= order_item.item.name%>0
+      <%=  order_item.quantity %>
+      (<%=  order_item.total %>) - </span></td>
+      <td><%= link_to order_item.order.status, confirm_order_path(order_item.order_id) %></td>
+    </tr>
+  </tbody>
+  <% end %>
+</table>

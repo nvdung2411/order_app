@@ -1,0 +1,148 @@
+<section class="home">
+
+ <div class="swiper home-slider">
+
+  <div class="swiper-wrapper">
+
+    <div class="swiper-slide slide">
+      <div class="content">
+        <span>order online</span>
+        <h3>roasted chicken</h3>
+        <a href='<%=  items_path %>' class="btn">see menus</a>
+      </div>
+      <div class="image">
+       <%= image_tag("home-img-3.png", alt: "") %>
+      </div>
+    </div>
+
+    <div class="swiper-slide slide">
+      <div class="content">
+        <span>order online</span>
+        <h3>delicious pizza</h3>
+        <a href='<%=  items_path %>' class="btn">see menus</a>
+      </div>
+      <div class="image">
+      <%= image_tag("home-img-1.png", alt: "") %>
+      </div>
+    </div>
+
+    <div class="swiper-slide slide">
+      <div class="content">
+        <span>order online</span>
+        <h3>double hamburger</h3>
+        <a href='<%=  items_path %>' class="btn">see menus</a>
+      </div>
+      <div class="image">
+       <%= image_tag("home-img-2.png", alt: "") %>
+      </div>
+    </div>
+  </div>
+
+  <div class="swiper-pagination"></div>
+
+</div>
+
+</section>
+
+<!-- category -->
+<section class="category">
+
+ <h1 class="title">food category</h1>
+
+ <div class="box-container">
+
+  <a href="<%=  items_path(category:'food') %>" class="box">
+   <%= image_tag("cat-1.png", alt: "") %>
+   <h3>fast food</h3>
+ </a>
+
+ <a href="category.html" class="box">
+    <%= image_tag("cat-2.png", alt: "") %>
+    <h3>main dishes</h3>
+ </a>
+
+ <a href="<%=  items_path(category:'drinks')%> "class="box">
+    <%= image_tag("cat-3.png", alt: "") %>
+    <h3>drinks</h3>
+ </a>
+
+ <a href="category.html" class="box">
+  <div class="image">
+    <%= image_tag("cat-4.png", alt: "") %>
+  </div>
+  <h3>desserts</h3>
+</a>
+
+</div>
+
+</section>
+
+<section class="products">
+
+  <h1 class="title">latest dishes</h1>
+
+  <div class="box-container">
+
+    <% @items.each do |item| %>
+    <div  class="box">
+      <a href="<%= item_path(item) %>" class="fas fa-eye"></a>
+
+      <%= image_tag item.item_img.url(:item_index) %>
+
+      <div class="stars">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+      </div>
+
+      <div class="name"><%= item.name %></div>
+      <div class="flex">
+        <div class="price"><%= item.price %>$</div>
+
+        <% unless user_signed_in? && current_user.admin %>
+        <%= form_with model: @order_item do |f| %>
+        <%= f.hidden_field :item_id, value: item.id %>
+        <%= f.number_field :quantity, class: 'qty', value: 1, min: 1%>
+
+        <button class="fas fa-shopping-cart custom_add_to_cart" type="submit" name="add_to_cart" >
+        </button>
+        <% end %>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+
+  </div>
+
+  <div class="more-btn">
+    <a href="<%=  items_path %>" class="btn">veiw all</a>
+  </div>
+
+</section>
+
+<%= render 'items/footer' %>
+
+
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+
+<script>
+
+  var swiper = new Swiper(".home-slider", {
+    loop:true,
+    grabCursor:true,
+    effect: "flip",
+    pagination: {
+    el: ".swiper-pagination",
+    clickable:true,
+  },
+});
+
+  $(".custom_add_to_cart").on('click', function(){
+    const my_cart = $(".icons .my_cart")[0].innerHTML
+    $(".icons .my_cart")[0].innerHTML = parseInt(my_cart) + 1
+    console.log(my_cart)
+  })
+
+</script>

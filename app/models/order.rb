@@ -1,4 +1,6 @@
 class Order < ApplicationRecord
+	enum status: { Unconfirmed: 0, Placed: 1, Cancelled: 2, Confirmed: 3 }
+	belongs_to :user, optional: true
   has_many :order_items
   before_save :set_subtotal
 

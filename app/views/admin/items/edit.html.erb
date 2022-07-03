@@ -2,6 +2,7 @@
 
   <div class="signup-form">
     <h2>Edit Item</h2>
+
     <%= simple_form_for @item, :html => { :multipart => true } do |f| %>
       <%= f.select :category_id, @categories %>
       <%= f.file_field :item_img %>
@@ -10,5 +11,6 @@
       <%= f.input :price %>
       <%= f.button :submit %>
     <% end %>
+
   </div>
 </div>

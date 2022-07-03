@@ -15,39 +15,41 @@
 
    <section class="flex">
 
-      <a href="home.html" class="logo">Food & Drinks 😋</a>
+    <a href="<%= home_path  %>" class="logo">Food & Drinks 😋</a>
 
-      <nav class="navbar">
-         <a href="<%= home_path  %>">home</a>
-         <a href="<%= about_path %>">about</a>
-         <a href="<%= items_path %>">menu</a>
-         <a href="#">orders</a>
-         <a href="#">contact</a>
-      <% if user_signed_in? %>
-         <a><%= link_to "logout", destroy_user_session_path, method: :delete %></a>
+    <nav class="navbar">
+      <a href="<%= home_path  %>">home</a>
+      <a href="<%= items_path %>">menu</a>
+
+      <% if user_signed_in? && current_user.admin %>
+        <a href="<%= admin_manage_user_path %>">manage user</a>
+        <a href="<%= admin_order_path  %>">orders</a>
       <% else %>
-         <a><%= link_to "login", new_user_session_path %></a>
+        <a href="<%= about_path %>">about</a>
+        <a href="<%= order_path %>">orders</a>
       <% end %>
-      </nav>
 
-      <div class="icons">
-         <a href="<%= search_path %>"><i class="fas fa-search"></i></a>
-         <a href="<%= cart_path %>"><i class="fas fa-shopping-cart"></i><span>(<%= render 'layouts/cart_text'%>)</span></a>
+      <a href="#">contact</a>
 
-         <div id="user-btn" class="fas fa-user"></div>
-         <div id="menu-btn" class="fas fa-bars"></div>
-      </div>
+      <% if user_signed_in? %>
+        <a><%= link_to "logout", destroy_user_session_path, method: :delete %></a>
+      <% else %>
+        <a><%= link_to "login", new_user_session_path %></a>
+      <% end %>
+    </nav>
 
-      <div class="profile">
-         <p class="name">shaikh anas</p>
-         <div class="flex">
-            <a href="profile.html" class="btn">profile</a>
-            <a href="#" class="delete-btn">logout</a>
-         </div>
-         <p class="account"><a href="login.html">login</a> or <a href="register.html">register</a></p>
-      </div>
+    <div class="icons">
+     <a href="<%= search_path %>"><i class="fas fa-search"></i></a>
 
-   </section>
+     <% unless user_signed_in? && current_user.admin %>
+      <a href="<%= cart_path %>">
+      <i class="fas fa-shopping-cart"></i>
+      <span >( <span class="my_cart m-0 b-0" ><%= current_order.order_items.size%> </span>)</span>
+      </a>
+    <% end %>
+    <a href="<%= profile_path %>"class="fas fa-user"></a>
+  </div>
+</section>
 
 </header>
 
