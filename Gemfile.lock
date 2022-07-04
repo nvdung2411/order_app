@@ -145,7 +145,6 @@ GEM
     minitest (5.16.1)
     msgpack (1.5.2)
     msgpack (1.5.2-java)
-    mysql2 (0.5.4)
     nio4r (2.5.8)
     nio4r (2.5.8-java)
     nokogiri (1.13.6)
@@ -322,7 +321,6 @@ DEPENDENCIES
   jquery-rails
   kt-paperclip (~> 7.1, >= 7.1.1)
   listen (~> 3.2)
-  mysql2 (>= 0.4.4)
   pg
   puma (~> 4.1)
   rails (~> 6.0.5)
