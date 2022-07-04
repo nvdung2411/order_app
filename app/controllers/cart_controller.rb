@@ -12,13 +12,7 @@ class CartController < ApplicationController
   end
 
   def order
-
-    if current_user.admin
-      @order_items = OrderItem.joins(:order).where('orders.status = 0')
-
-    else
-      @order = current_order
-    end
+    @order = current_order
   end
 
   def update_status

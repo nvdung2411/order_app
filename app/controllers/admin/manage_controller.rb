@@ -1,7 +1,7 @@
 class Admin::ManageController < ApplicationController
 
   def order
-      @order_items = OrderItem.joins(:order).where('orders.status = 0')
+      @order_items = OrderItem.includes(:user, :item, :order).joins(:order).where('orders.status = 0')
   end
 
   def manage_user

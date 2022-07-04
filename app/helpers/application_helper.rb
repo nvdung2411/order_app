@@ -7,5 +7,4 @@ module ApplicationHelper
       Order.find_by_id(session[:order_id])
     end
   end
-
 end

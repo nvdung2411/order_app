@@ -6,10 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-9.times do |index|
-	Item.create! id: index, name: "Food #{index}", description: "Lorem ipsum dolor sit, amet consectetur adipisicin...",  price:1, category_id: 1, item_img_file_name: "f#{index}.jpg"
-end
+Category.create!(id: 1, name: 'food')
+Category.create!(id: 2, name: 'drinks')
 
-6.times do |index|
-	Item.create! id: index, name: "Drinks #{index}", description: "Lorem ipsum dolor sit, amet consectetur adipisicin...",  price:1, category_id: 2, item_img_file_name: "d#{index}.png"
-end
+User.create! id: 1, email: "admin@gmail.com",phone: "12345995", name: "admin", delivery_address: "HD", admin: true
+User.create! id: 2, email: "user1@gmail.com",phone: "1234535", name: "user1", delivery_address: "HN"
+User.create! id: 3, email: "user2@gmail.com",phone: "123453665", name: "user2", delivery_address: "HN"
