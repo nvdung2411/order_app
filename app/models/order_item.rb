@@ -1,5 +1,5 @@
 class OrderItem < ApplicationRecord
-	enum status: { Unconfirmed: 0, Placed: 1, Cancelled: 2, Confirmed: 3 }
+	enum status: { unconfirmed: 0, placed: 1, cancelled: 2, confirmed: 3 }
   belongs_to :item
   belongs_to :order
   belongs_to :user
@@ -8,26 +8,13 @@ class OrderItem < ApplicationRecord
 
   delegate :name, :email, :phone, :delivery_address, to: :user,  allow_nil: true, prefix: true
 
-  def unit_price
-    # If there is a record
-    if persisted?
-      self[:unit_price]
-    else
-      item.price
-    end
-  end
-
-  def total
-    unit_price * quantity
-  end
-
   private
 
   def set_unit_price
-    self[:unit_price] = unit_price
+    self[:unit_price] = persisted? ? self[:unit_price] : item.price
   end
 
   def set_total
-    self[:total] = total * quantity
+    self[:total] = unit_price * quantity
   end
 end

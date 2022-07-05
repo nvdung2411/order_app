@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :items
     get 'order', to: 'manage#order'
     get 'manage_user', to: 'manage#manage_user'
+    get 'update_status/:id', to: 'manage#update_status', as: 'confirm_order'
   end
 
   resources :items, only: [:index, :show]
@@ -19,5 +20,4 @@ Rails.application.routes.draw do
   get 'order', to: 'cart#order'
   get 'profile', to: 'user#profile'
   delete 'destroy', to: 'cart#destroy'
-  get 'update_status/:id', to: 'cart#update_status', as: 'confirm_order'
 end

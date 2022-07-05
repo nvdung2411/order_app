@@ -2,17 +2,14 @@
   <h3>my profile</h3>
   <p><a href="<%= home_path%>">home </a> <span> / profile</span></p>
 </div>
-
 <section class="user-details">
-
- <div class="user">
-  <%= image_tag "user-icon.png" %>
-  <p><i class="fas fa-user"></i> <span><%= current_user.name %></span></p>
-  <p><i class="fas fa-phone"></i> <span><%= current_user.phone %></span></p>
-  <p><i class="fas fa-envelope"></i> <span><%= current_user.email %></span></p>
-  <p class="address"><i class="fas fa-map-marker-alt"></i>
-    <span><%= current_user.delivery_address %></span></p>
+  <div class="user">
+    <%= image_tag "user-icon.png" %>
+    <p><i class="fas fa-user"></i> <span><%= current_user.name %></span></p>
+    <p><i class="fas fa-phone"></i> <span><%= current_user.phone %></span></p>
+    <p><i class="fas fa-envelope"></i> <span><%= current_user.email %></span></p>
+    <p class="address"><i class="fas fa-map-marker-alt"></i>
+      <span><%= current_user.delivery_address %></span></p>
     <a href="<%= edit_user_registration_path %>" class="btn">update profile</a>
   </div>
-
 </section>

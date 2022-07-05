@@ -1,38 +1,30 @@
-<% if @order_items.any? %>
-
 <div class="heading">
- <h3>your orders</h3>
- <p><a href="<%= checkout_path%>">checkout cart </a> <span> / orders</span></p>
+  <h3>your orders</h3>
+  <p><a href="<%= checkout_path%>">checkout cart </a> <span> / orders</span></p>
 </div>
-
 <section class="orders">
-
   <h1 class="title">placed orders</h1>
-
   <div class="box-container">
-
-    <div class="box">
-      <p> placed on : <span><%= current_user.created_at%></span></p>
-      <p> name : <span><%= current_user.name %></span> </p>
-      <p> number : <span><%= current_user.phone %></span> </p>
-      <p> email : <span><%= current_user.email %></span> </p>
-      <p> address : <span><%= current_user.delivery_address %></span></p>
-      <p>your orders :
-
-        <% @order_items.each do |product| %>
-        <span>
-          <%= product.item.name%>0
-          <%=  product.quantity %>
-          (<%=  product.total %>) - </span>
+    <% @order.each do |order| %>
+      <div class="box">
+        <p> placed on : <span><%= order.created_at %></span></p>
+        <p> name : <span><%= order.user_name %></span> </p>
+        <p> number : <span><%= order.user_phone %></span> </p>
+        <p> email : <span><%= order.user_email %></span> </p>
+        <p> address : <span><%= order.user_delivery_address %></span></p>
+        <p>your orders :
+          <% OrderItem.where(order_id: order.id).each do |order_item| %>
+            <span>
+              <%= order_item.item.name%>  0<%=order_item.quantity %>
+              (<%=  order_item.total %>) - </span>
           <% end%>
-
-          <p> total price : <span><%= @order.subtotal %>$/-</span> </p>
+          <p> total price : <span><%= order.subtotal %>$/-</span> </p>
           <p> payment method : <span>cash on delivery</span> </p>
-          <p> status : <span style="color:red;"><%= @order.status %></span> </p>
-          <%= link_to "Cancelled", destroy_path,
-          method: :delete, data: { confirm: "Are you sure?" },
-          class: "btn btn-custom" if @order.status == 'Unconfirmed'%>
+          <p> status : <span style="color:red;"><%= order.status %></span> </p>
+          <%= link_to "Cancelled", destroy_path(order_id: order.id),
+              method: :delete, data: { confirm: "Are you sure?" },
+              class: "btn btn-custom" if order.unconfirmed? %>
         </div>
-      </div>
-    </section>
-<% end %>
+      <% end %>
+    </div>
+</section>

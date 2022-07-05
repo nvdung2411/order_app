@@ -23,7 +23,7 @@
       <%= order_item.item.name%>0
       <%=  order_item.quantity %>
       (<%=  order_item.total %>) - </span></td>
-      <td><%= link_to order_item.order.status, confirm_order_path(order_item.order_id) %></td>
+      <td><%= link_to order_item.order.status, admin_confirm_order_path(order_item.order_id) %></td>
     </tr>
   </tbody>
   <% end %>

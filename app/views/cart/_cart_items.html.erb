@@ -1,28 +1,25 @@
 <h1 class="title">your cart</h1>
-  <div class="cart-total">
-    <p>grand total: $<%= current_order.subtotal %>/-</p>
+<div class="cart-total">
+  <p>grand total : <span><%=@order_items.sum(:total) %>$/-</span></p>
+  <a href="<%= items_path %>"class="btn">menu</a>
   <a href="<%= checkout_path %>"class="btn">checkout orders</a>
-  </div>
-<% @order_items.each do |product| %>
+</div>
 <div class="box-container">
-  <div class="box">
+  <% @order_items.each do |product| %>
+    <div class="box">
       <a href="#" class="fas fa-eye"></a>
-
-            <div class="name"><%= product.item.name%></div>
-            <img src="/<%= product.item.item_img_file_name%>">
-            <%= form_with model: product, method: :patch do |f|%>
-
-            <div class="flex">
-              <div class="price">$<%= product.item.price %></div>
-                <%= f.hidden_field :item_id, value: product.item.id %>
-                <%= f.number_field :quantity, value: product.quantity, class:"qty" %>
-              <button type="submit" class="fas fa-edit"></button>
-            </div>
-            <%= link_to "Remove Items", product, method: :delete, remote: true %>
-            <% end%>
-        <div class="sub-total">sub total : <%= product.total %></div>
-      </div>
+      <div class="name"><%= product.item.name%></div>
+      <img src="/<%= product.item.item_img_file_name%>">
+      <%= form_with model: product, method: :patch do |f|%>
+        <div class="flex">
+          <div class="price">$<%= product.item.price %></div>
+          <%= f.hidden_field :item_id, value: product.item.id %>
+          <%= f.number_field :quantity, value: product.quantity, class:"qty" %>
+          <button type="submit" class="fas fa-edit"></button>
+        </div>
+        <%= link_to "Remove Items", product, method: :delete, remote: true %>
+      <% end%>
+      <div class="sub-total">sub total : <%= product.total %></div>
     </div>
-<% end%>
-
-
+  <% end%>
+</div>

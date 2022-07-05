@@ -1,42 +1,35 @@
 <% if @order_items.count >= 1 %>
   <div class="heading">
-     <h3>Check Out</h3>
-     <p><a href="<%= order_path%>">order </a> <span> / checkout</span></p>
+    <h3>Check Out</h3>
+    <p><a href="<%= order_path%>">order </a> <span> / checkout</span></p>
   </div>
   <section class="checkout">
-
-     <form >
-        <div class="cart-items">
-          <h3>cart items</h3>
-
-            <% @order_items.each do |product| %>
-
-              <p><span class="name"><%= product.item.name%>
-                      0<%=product.quantity %></span>
-                <span class="price"><%= product.total %>$</span></p>
+    <form >
+      <div class="cart-items">
+        <h3>cart items</h3>
+        <% @order_items.each do |product| %>
+          <p><span class="name"><%= product.item.name%>
+              0<%=product.quantity %></span>
+            <span class="price"><%= product.total %>$</span></p>
         <% end%>
-          <p class="grand-total"><span class="name">grand total :</span>
-            <span class="price"><%= current_order.subtotal %>$</span></p>
-          <a href="<%= cart_path %>" class="btn">view cart</a>
-        </div>
-
-        <div class="user-info">
-          <h3>your info</h3>
-          <p><i class="fas fa-user"></i> <span><%= current_user.name %></span></p>
-          <p><i class="fas fa-phone"></i> <span><%= current_user.phone %></span></p>
-          <p><i class="fas fa-envelope"></i> <span><%= current_user.email %></span></p>
-          <h3>delivery address</h3>
-          <p class="address"><i class="fas fa-map-marker-alt"></i>
-            <span><%= current_user.delivery_address %></span>
+        <p class="grand-total"><span class="name">grand total :</span>
+          <span class="price"><%= current_order.subtotal %>$</span></p>
+        <a href="<%= cart_path %>" class="btn">view cart</a>
+      </div>
+      <div class="user-info">
+        <h3>your info</h3>
+        <p><i class="fas fa-user"></i> <span><%= current_user.name %></span></p>
+        <p><i class="fas fa-phone"></i> <span><%= current_user.phone %></span></p>
+        <p><i class="fas fa-envelope"></i> <span><%= current_user.email %></span></p>
+        <h3>delivery address</h3>
+        <p class="address"><i class="fas fa-map-marker-alt"></i>
+          <span><%= current_user.delivery_address %></span>
           <p><i class="fa fa-check"></i><span>Cash on delivery</span></p>
-            <hr>
-            <a href="<%= edit_user_registration_path %>" class="btn">update info</a>
-
+          <hr>
+          <a href="<%= edit_user_registration_path %>" class="btn">update info</a>
         </div>
         <a href="<%= order_path %>", class="btn order-btn">place order</a>
-
-     </form>
-  </section>
-
-  <%= render 'items/footer' %>
-<% end %>
+      </form>
+    </section>
+    <%= render 'items/footer' %>
+  <% end %>

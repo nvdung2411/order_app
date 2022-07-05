@@ -8,7 +8,7 @@
     <% @items.each do |item| %>
       <div  class="box">
         <a href="<%= item_path(item) %>" class="fas fa-eye"></a>
-        <%= image_tag item.item_img.url(:item_index) %>
+        <img src="/<%=item.item_img_file_name%>">
         <div class="stars">
           <i class="fas fa-star"></i>
           <i class="fas fa-star"></i>

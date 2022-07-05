@@ -4,11 +4,11 @@ class ItemsController < ApplicationController
 
   def index
     if params[:category].blank?
-       @items = Item.all.paginate(page: params[:page], per_page: 6).order("created_at DESC")
+      @items = Item.all.paginate(page: params[:page], per_page: 6).order("created_at DESC")
     else
       @category_id = Category.find_by(name: params[:category]).id
       @items = Item.where(:category_id => @category_id).paginate(page: params[:page],
-      	per_page: 6).order("created_at DESC")
+      per_page: 6).order("created_at DESC")
     end
 
     if params[:q].present?
