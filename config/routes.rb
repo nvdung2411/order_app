@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
   root 'homepage#home'
+
   resources :order_items
-  devise_for :users
+  devise_for :users, controllers: {
+    confirmations: 'confirmations'
+  }
 
   namespace :admin do
     resources :items

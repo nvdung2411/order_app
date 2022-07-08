@@ -6,7 +6,7 @@ class CartController < ApplicationController
     if current_order.confirmed?
       @order_items.update(status: :placed)
     end
-    @order_items = @order_items.where(status: :unconfirmed)
+    @order_items = @order_items.includes([:item]).where(status: :unconfirmed)
   end
 
   def checkout

@@ -6,7 +6,7 @@ class Order < ApplicationRecord
   delegate :name, :email, :phone, :delivery_address, to: :user,  allow_nil: true, prefix: true
 
   def subtotal
-    order_items.collect { |order_item| order_item.valid? ? order_item.unit_price * order_item.quantity : 0 }.sum
+    order_items.includes(:item, :user).collect { |order_item| order_item.valid? ? order_item.unit_price * order_item.quantity : 0 }.sum
   end
 
   private
