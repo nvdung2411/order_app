@@ -1,5 +1,4 @@
 class OrderItem < ApplicationRecord
-	enum status: { unconfirmed: 0, placed: 1, cancelled: 2, confirmed: 3 }
   belongs_to :item
   belongs_to :order
   belongs_to :user

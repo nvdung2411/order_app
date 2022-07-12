@@ -1,1 +1,7 @@
 $("#cart").html("<%= j render 'cart/cart' %>)");
+$(".alert.ajax").addClass("alert-success");
+$(".alert.ajax").html("Add to cart successfully");
+setTimeout(() => {
+  $(".alert.ajax").html("");
+  $(".alert.ajax").removeClass("alert-success");
+}, 800);

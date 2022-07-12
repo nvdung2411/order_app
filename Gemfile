@@ -11,11 +11,10 @@ gem 'jquery-rails'
 gem 'devise', '~> 4.8', '>= 4.8.1'
 gem 'figaro', '~> 1.2'
 gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
-gem 'kt-paperclip', '~> 7.1', '>= 7.1.1'
 gem 'ransack'
 gem 'will_paginate', '~> 3.3'
 gem "image_processing", "~> 1.0"
-
+gem 'social-share-button', '~> 1.2', '>= 1.2.4'
 # Use mysql as the database for Active Record
 gem 'pg'
 # Use Puma as the app server

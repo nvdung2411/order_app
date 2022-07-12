@@ -3,7 +3,7 @@
     <h2>New Item</h2>
     <%= simple_form_for @item, url: admin_items_path, method: :post do |f| %>
       <%= select_tag(:category_id, options_for_select(@categories), :prompt => "Select a category") %>
-      <%= f.file_field :item_img %>
+      <%= f.file_field :image %>
       <div class="form-inputs">
         <%= f.input :name, label: "Item Name" %>
         <%= f.input :description %>

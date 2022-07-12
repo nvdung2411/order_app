@@ -1,19 +1,19 @@
-<% if @order_items.count >= 1 %>
+<% if @order_items.present? %>
   <div class="heading">
     <h3>Check Out</h3>
-    <p><a href="<%= order_path%>">order </a> <span> / checkout</span></p>
+    <p><a href="<%= order_path(@order.id)%>">order </a> <span> / checkout</span></p>
   </div>
   <section class="checkout">
     <form >
       <div class="cart-items">
         <h3>cart items</h3>
-        <% @order_items.each do |product| %>
-          <p><span class="name"><%= product.item.name%>
-              0<%=product.quantity %></span>
-            <span class="price"><%= product.total %>$</span></p>
+        <% @order_items.each do |order_item| %>
+          <p><span class="name"><%= order_item.item.name%>
+              0<%=order_item.quantity %></span>
+            <span class="price"><%= order_item.total %>$</span></p>
         <% end%>
         <p class="grand-total"><span class="name">grand total :</span>
-          <span class="price"><%= current_order.subtotal %>$</span></p>
+          <span class="price"><%= @order.subtotal %>$</span></p>
         <a href="<%= cart_path %>" class="btn">view cart</a>
       </div>
       <div class="user-info">
@@ -28,7 +28,7 @@
           <hr>
           <a href="<%= edit_user_registration_path %>" class="btn">update info</a>
         </div>
-        <a href="<%= order_path %>", class="btn order-btn">place order</a>
+        <a href="<%= update_status_path(@order.id) %>", class="btn order-btn">place order</a>
       </form>
     </section>
     <%= render 'items/footer' %>

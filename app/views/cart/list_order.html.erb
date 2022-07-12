@@ -1,12 +1,11 @@
+<div class = "title">
+  <h1>list orders</h1>
+</div>
 <table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">STT</th>
       <th scope="col">placed on</th>
-      <th scope="col">Name</th>
-      <th scope="col">Emai</th>
-      <th scope="col">Phone</th>
-      <th scope="col">Delivery Address</th>
       <th scope="col">Items</th>
       <th scope="col">Status</th>
     </tr>
@@ -16,10 +15,6 @@
       <tr>
         <th scope="row"><%= index + 1 %></th>
         <td><%= order.created_at %></td>
-        <td><%= order.user_name %></td>
-        <td><%= order.user_email %></td>
-        <td><%= order.user_phone %></td>
-        <td><%= order.user_delivery_address %></td>
         <% order_items = OrderItem.where(order_id: order.id) %>
         <td><span>
             <% order_items.each do |order_item| %>
@@ -28,12 +23,10 @@
             <% end %>
           </span></td>
         <td><%= order.status %></td>
-        <td>
-            <%= link_to "Confirmed", admin_confirm_order_path(order.id) %> /
-            <%= link_to "Cancelled", admin_cancelled_order_path(order.id) %>
-          </td>
-        </tr>
-      </tbody>
-    <% end %>
-  </table>
+        <td><%= link_to 'Show', order_path(order.id) %> /
+          <%=link_to "Delete", delete_order_path(order.id),method: :delete if order.cancelled? %></td>
+      </tr>
+    </tbody>
+  <% end %>
+</table>
 <%= will_paginate @orders %>

@@ -3,7 +3,7 @@
     <h2>Edit Item</h2>
     <%= simple_form_for @item, url: admin_item_path, method: :patch, :html => { :multipart => true } do |f| %>
       <%= f.select :category_id, @categories %>
-      <%= f.file_field :item_img %>
+      <%= f.file_field :image %>
       <%= f.input :name, label: "Item Name" %>
       <%= f.input :description %>
       <%= f.input :price %>
