@@ -1,11 +1,11 @@
 <section class="products">
   <h1 class="title">latest dishes</h1>
-  <% if user_signed_in? && current_user.admin %>
+  <% if can? :manage, @item %>
     <%= link_to "Add items", new_admin_item_path, class: "btn btn-custom" %>
   <% end %>
   <hr>
   <div class="box-container">
-    <% @items.each do |item| %>
+    <% @items.includes([:image_attachment]).each do |item| %>
       <div  class="box">
         <a href="<%= item_path(item) %>" class="fas fa-eye"></a>
         <%= image_tag item.image if item.image.attached? %>
@@ -19,7 +19,7 @@
         <div class="name"><%= item.name %></div>
         <div class="flex">
           <div class="price"><%= item.price %>$</div>
-          <% unless user_signed_in? && current_user.admin %>
+          <% if cannot? :manage, @item %>
             <%= form_with model: @order_item do |f| %>
               <%= f.hidden_field :item_id, value: item.id %>
               <%= f.number_field :quantity, class: 'qty', value: 1, min: 1%>

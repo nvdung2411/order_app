@@ -11,18 +11,20 @@
         </p>
         <h2 style="color:red;"><%= @item.price %>$</h4>
         <br>
-        <%= social_share_button_tag(@item.name) %>
+        <%= social_share_button_tag('Share to Facebook', url: "https://lit-lake-24270.herokuapp.com/items/#{@item.id}", desc: @item.name) %>
       </div>
     </div>
   </div>
   <div class="row">
-    <% if user_signed_in? && current_user.admin %>
-      <div class="links btn-group">
-        <%= link_to "Back", root_path, class: "btn btn-custom" %>
-        <%= link_to "Edit", edit_admin_item_path(@item), class: "btn btn-custom" %>
-        <% unless OrderItem.exists?(item_id: @item) %>
-          <%= link_to "Delete", admin_item_path(@item), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-custom" %>
-        <% end %>
+    <div class="col-md-6">
+      <% if can? :manage, @item %>
+        <div class="links btn-group">
+          <%= link_to "Back", root_path, class: "btn btn-custom" %>
+          <%= link_to "Edit", edit_admin_item_path(@item), class: "btn btn-custom" %>
+          <% unless OrderItem.exists?(item_id: @item) %>
+            <%= link_to "Delete", admin_item_path(@item), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-custom" %>
+          <% end %>
+        </div>
       </div>
     <% end %>
   </div>

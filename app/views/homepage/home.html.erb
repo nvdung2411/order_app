@@ -81,7 +81,7 @@
         <div class="name"><%= item.name %></div>
         <div class="flex">
           <div class="price"><%= item.price %>$</div>
-          <% unless user_signed_in? && current_user.admin %>
+          <% if cannot? :manage, @item %>
             <%= form_with model: @order_item do |f| %>
               <%= f.hidden_field :item_id, value: item.id %>
               <%= f.number_field :quantity, class: 'qty', value: 1, min: 1%>
