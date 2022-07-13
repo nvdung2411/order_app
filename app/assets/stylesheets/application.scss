@@ -6,6 +6,7 @@
 :root {
 	--yellow: #fed330;
 	--red: #e74c3c;
+	--green: #90EE90;
 	--white: #fff;
 	--black: #222;
 	--light-color: #777;
@@ -121,6 +122,26 @@ section {
 }
 
 .delete-btn:hover,
+.btn:hover {
+	transform: scale(1.1);
+}
+
+.confirm-btn,
+.btn {
+	display: inline-block;
+	margin-top: 1rem;
+	padding: 1rem 2rem;
+	cursor: pointer;
+	font-size: 2rem;
+	text-transform: capitalize;
+}
+
+.confirm-btn {
+	background-color: var(--green);
+	color: var(--white);
+}
+
+.confirm-btn:hover,
 .btn:hover {
 	transform: scale(1.1);
 }
@@ -474,6 +495,11 @@ section {
 .products .more-btn {
 	margin-top: 2rem;
 	text-align: center;
+}
+.more-btn.admin {
+	display: flex;
+	justify-content: flex-end;
+	margin-right: 50px;
 }
 
 .products .cart-total {

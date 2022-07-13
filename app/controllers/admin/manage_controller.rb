@@ -4,6 +4,13 @@ class Admin::ManageController < ApplicationController
     @orders = Order.where(status: :unconfirmed).paginate(page: params[:page], per_page: 8).order("created_at DESC")
   end
 
+  def confirm_all
+    orders = Order.where(status: :unconfirmed)
+    if orders.update(status: :confirmed)
+      redirect_to admin_order_path
+    end
+  end
+
   def confirm_order
     order = Order.find params[:id]
     if order.update(status: :confirmed)
@@ -11,11 +18,23 @@ class Admin::ManageController < ApplicationController
     end
   end
 
-  def cancelled_order
+  def cancel_order
     order = Order.find params[:id]
     if order.update(status: :cancelled)
       redirect_to admin_order_path
     end
+  end
+
+  def confirm_multiple
+    order_ids = params[:order_ids].split(',').map(&:to_i)
+    orders = Order.where(id: order_ids)
+    order.update(status: :confirmed)
+  end
+
+  def cancel_multiple
+    order_ids = params[:order_ids].split(',').map(&:to_i)
+    orders = Order.where(id: order_ids)
+    order.update(status: :cancelled)
   end
 
   def manage_user
@@ -23,8 +42,8 @@ class Admin::ManageController < ApplicationController
   end
 
   def destroy_user
-    @user =User.find(params[:id])
-    @user.destroy
+    user =User.find(params[:id])
+    user.destroy
     redirect_to admin_manage_user_path
   end
 end

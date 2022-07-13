@@ -26,6 +26,11 @@ class CartController < ApplicationController
     @orders = Order.where(user_id: current_user).not_incart.paginate(page: params[:page], per_page: 8).order("created_at DESC")
   end
 
+  def delete_all
+    current_order.order_items.destroy_all
+    redirect_to cart_path
+  end
+
   def destroy
     order = Order.find params[:order_id].to_i
     order.order_items.destroy_all

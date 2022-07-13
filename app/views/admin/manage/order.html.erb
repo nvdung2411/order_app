@@ -1,3 +1,6 @@
+<div class="more-btn admin">
+  <a href="<%= admin_confirm_all_path %>" class="confirm-btn">Confirm All</a>
+</div>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -9,6 +12,11 @@
       <th scope="col">Delivery Address</th>
       <th scope="col">Items</th>
       <th scope="col">Status</th>
+      <th scope="col"></th>
+      <th scope="col">
+        <a class='confirm-cancel' onclick="deleteOrders('confirm_multiple')">Confirm</a> /
+        <a class='confirm-cancel' onclick="deleteOrders('cancel_multiple')">Cancell</a>
+      </th>
     </tr>
   </thead>
   <% @orders.each_with_index do |order, index| %>
@@ -29,11 +37,43 @@
           </span></td>
         <td><%= order.status %></td>
         <td>
-            <%= link_to "Confirmed", admin_confirm_order_path(order.id) %> /
-            <%= link_to "Cancelled", admin_cancelled_order_path(order.id) %>
-          </td>
-        </tr>
-      </tbody>
-    <% end %>
-  </table>
+          <%= link_to "Confirm", admin_confirm_order_path(order.id) %> /
+          <%= link_to "Cancel", admin_cancel_order_path(order.id) %>
+        </td>
+        <td>
+          <input type="checkbox" class="order-checkbox" data-order_id='<%= order.id %>'>
+        </td>
+      </tr>
+    </tbody>
+  <% end %>
+</table>
 <%= will_paginate @orders %>
+<script>
+  let order_ids = [];
+  $('.confirm-cancel').css("pointer-events", order_ids.length == 0 ? "none" : 'auto');
+
+  function deleteOrders(action) {
+    order_ids = [];
+    var order_checkboxs = [].slice.call(document.getElementsByClassName('order-checkbox'));
+    order_checkboxs.forEach(e => {
+      if (e.checked) {
+        order_ids.push($(e).data('order_id'));
+      }
+    });
+    $.ajax({
+      type: 'get',
+      dataType: 'html',
+      url: `/admin/${action}?order_ids=${order_ids}`
+    });
+    setTimeout(() => {
+      window.location.reload();
+    }, 50);
+  }
+  $('input.order-checkbox').click(function() {
+  if ($(this).is(':checked')) {
+    $('.confirm-cancel').css("pointer-events", 'auto');
+  } else {
+    $('.confirm-cancel').css("pointer-events", 'none');
+  }
+  });
+</script>
