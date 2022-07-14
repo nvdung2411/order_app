@@ -7,14 +7,16 @@ Rails.application.routes.draw do
     confirmations: 'confirmations'
   }
 
+  mount ActionCable.server => '/cable'
+
   namespace :admin do
     resources :items
     get 'order', to: 'manage#order'
     get 'manage_user', to: 'manage#manage_user'
-    get 'confirm_order/:id', to: 'manage#confirm_order', as: 'confirm_order'
     get 'cancel_multiple', to: 'manage#cancel_multiple', as: 'cancel_multiple'
     get 'confirm_multiple', to: 'manage#confirm_multiple', as: 'confirm_multiple'
-    get 'cancel_order/:id', to: 'manage#cancelorder', as: 'cancel_order'
+    get 'confirm_order/:id', to: 'manage#confirm_order', as: 'confirm_order'
+    get 'cancel_order/:id', to: 'manage#cancel_order', as: 'cancel_order'
     get 'confirm_all', to: 'manage#confirm_all', as: 'confirm_all'
     delete 'destroy_user/:id', to: 'manage#destroy_user', as: 'destroy_user'
   end

@@ -3,7 +3,6 @@ class CreateOrders < ActiveRecord::Migration[6.0]
     create_table :orders do |t|
       t.integer :subtotal
       t.integer :total
-
       t.timestamps
     end
   end

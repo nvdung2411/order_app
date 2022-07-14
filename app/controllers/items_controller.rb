@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
     end
     @order_item = current_order.order_items.new
   end
-
+      
   def search
     @search = Item.ransack(params[:q])
     @items = @search.result.paginate(page: params[:page],  per_page: 6)

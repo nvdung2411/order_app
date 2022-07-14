@@ -1,4 +1,5 @@
 class Admin::ManageController < ApplicationController
+  include NotificationModule
 
   def order
     @orders = Order.where(status: :unconfirmed).paginate(page: params[:page], per_page: 8).order("created_at DESC")
@@ -14,6 +15,7 @@ class Admin::ManageController < ApplicationController
   def confirm_order
     order = Order.find params[:id]
     if order.update(status: :confirmed)
+      create_notification(current_user.id, order.user_id, "confirm_order")
       redirect_to admin_order_path
     end
   end
@@ -21,6 +23,7 @@ class Admin::ManageController < ApplicationController
   def cancel_order
     order = Order.find params[:id]
     if order.update(status: :cancelled)
+      create_notification(current_user.id, order.user_id, "cancel_order")
       redirect_to admin_order_path
     end
   end
@@ -47,3 +50,4 @@ class Admin::ManageController < ApplicationController
     redirect_to admin_manage_user_path
   end
 end
+

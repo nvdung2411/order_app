@@ -14,6 +14,12 @@ class CartController < ApplicationController
 
   def update_status
     current_order.update(status: :unconfirmed) if current_order.incart?
+    Notification.create(
+      user_id: current_user.id,
+      recipient_id: User.first.id,
+      action: 'update_status'
+    )
+
     redirect_to order_path(params[:id])
     flash[:info] = "Please wait for confirmation"
   end

@@ -16,6 +16,8 @@ gem 'will_paginate', '~> 3.3'
 gem "image_processing", "~> 1.0"
 gem 'social-share-button', '~> 1.2', '>= 1.2.4'
 gem 'cancancan'
+gem "redis", "~> 3.0"
+
 # Use mysql as the database for Active Record
 gem 'pg'
 # Use Puma as the app server

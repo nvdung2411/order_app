@@ -15,8 +15,7 @@
         <a href="<%= home_path  %>" class="logo">Food & Drinks 😋</a>
         <nav class="navbar">
           <a href="<%= items_path %>">menu</a>
-
-          <% if user_signed_in? && current_user.admin %>
+          <% if user_signed_in? && current_user.admin? %>
             <a href="<%= admin_manage_user_path %>">user</a>
             <a href="<%= admin_order_path  %>">orders</a>
           <% else %>
@@ -24,17 +23,15 @@
             <a href="<%= list_order_path %>">orders</a>
           <% end %>
           <a href="#">contact</a>
-
           <% if user_signed_in? %>
             <a><%= link_to "logout", destroy_user_session_path, method: :delete %></a>
           <% else %>
             <a><%= link_to "login", new_user_session_path %></a>
           <% end %>
         </nav>
-
         <div class="icons">
           <a href="<%= search_path %>"><i class="fas fa-search"></i></a>
-          <% unless user_signed_in? && current_user.admin %>
+          <% unless user_signed_in? && current_user.admin? %>
             <a href="<%= cart_path %>">
               <i class="fas fa-shopping-cart"></i>
               <span >( <span class="my_cart m-0 b-0" ><%= item_in_cart.size %> </span>)</span>
