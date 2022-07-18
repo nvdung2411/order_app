@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :order_items
   has_many :orders
   has_many :notifications
+  has_many :reviews, dependent: :destroy
 
   devise  :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable, :confirmable

@@ -8,6 +8,9 @@ class Admin::ManageController < ApplicationController
   def confirm_all
     orders = Order.where(status: :unconfirmed)
     if orders.update(status: :confirmed)
+      orders.each do |order|
+        create_notification(current_user.id, order.user_id, "confirm_order")
+      end
       redirect_to admin_order_path
     end
   end
@@ -31,17 +34,23 @@ class Admin::ManageController < ApplicationController
   def confirm_multiple
     order_ids = params[:order_ids].split(',').map(&:to_i)
     orders = Order.where(id: order_ids)
-    order.update(status: :confirmed)
+    orders.update(status: :confirmed)
+    orders.each do |order|
+      create_notification(current_user.id, order.user_id, "confirm_order")
+    end
   end
 
   def cancel_multiple
     order_ids = params[:order_ids].split(',').map(&:to_i)
     orders = Order.where(id: order_ids)
-    order.update(status: :cancelled)
+    orders.update(status: :cancelled)
+    orders.each do |order|
+      create_notification(current_user.id, order.user_id, "confirm_order")
+    end
   end
 
   def manage_user
-    @user = User.select {|user| user.admin == false }
+    @user = User.select {|user| user.admin! }
   end
 
   def destroy_user

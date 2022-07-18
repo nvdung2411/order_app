@@ -17,13 +17,18 @@ class ItemsController < ApplicationController
     end
     @order_item = current_order.order_items.new
   end
-      
+
   def search
     @search = Item.ransack(params[:q])
     @items = @search.result.paginate(page: params[:page],  per_page: 6)
   end
 
   def show
+    if @item.reviews.blank?
+			@average_review = 0
+		else
+			@average_review = @item.reviews.average(:rate).round(2)
+		end
   end
 
   private

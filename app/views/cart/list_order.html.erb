@@ -24,7 +24,8 @@
           </span></td>
         <td><%= order.status %></td>
         <td><%= link_to 'Show', order_path(order.id) %> /
-          <%=link_to "Delete", delete_order_path(order.id),method: :delete if order.cancelled? %></td>
+          <%=link_to "Delete", delete_order_path(order.id),method: :delete if order.cancelled? %>
+        </td>
       </tr>
     </tbody>
   <% end %>
