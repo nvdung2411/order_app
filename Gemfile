@@ -5,14 +5,27 @@ ruby '2.7.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.0.5'
+gem 'simple_form', '~> 5.1'
+gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
+gem 'jquery-rails'
+gem 'devise', '~> 4.8', '>= 4.8.1'
+gem 'figaro', '~> 1.2'
+gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
+gem 'ransack'
+gem 'will_paginate', '~> 3.3'
+gem "image_processing", "~> 1.0"
+gem 'social-share-button', '~> 1.2', '>= 1.2.4'
+gem 'cancancan'
+gem "redis", "~> 3.0"
+
 # Use mysql as the database for Active Record
-gem 'mysql2', '>= 0.4.4'
+gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 4.0'
+gem 'webpacker', '~> 5.4', '>= 5.4.3'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -30,13 +43,16 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry-rails', platforms: [:mri, :mingw, :x64_mingw]
 end
+
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.2'
+  gem "rspec-rails", "~> 4.0.1"
+  gem 'bullet'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'

@@ -1,0 +1,13 @@
+<% if ['confirm_order', 'confirm_all', 'confirm_multiple'].include?(notification.action) %>
+  <div class="alert alert-success" role="alert">
+    Your order has been confirmed. Please reload!
+  </div>
+<% elsif  ['cancel_order', 'cancel_multiple'].include?(notification.action) %>
+  <div class="alert alert-warning" role="alert">
+    Your order is declined!
+  </div>
+<% elsif notification.action == 'update_status'%>
+  <div class="alert alert-danger" role="alert">
+    New orders. Please reload and confirm!
+  </div>
+<% end %>

@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-md-8">
+    <div class="item-info">
+      <%= image_tag @item.image if @item.image.attached? %>
+      <div style="flex:1; padding-left: 50px">
+        <h3><%= @item.name %></h3>
+        <p class="item-desc">
+          <h4>Description:</h4>
+          <p style="font-size: 17px; text-align: justify">
+            <%= @item.description %></p>
+        </p>
+        <h2 class="avg-rating">Average Rating</h2>
+        <div class="average-review-rating" data-score=<%= @average_review %>></div>
+        <span class="number-of-reviews">Based on <%= @item.reviews.count %> reviews</span>
+        <h2 style="color:red;"><%= @item.price %>$</h4>
+        <br>
+        <%= social_share_button_tag('Share to Faceitem', url: "https://lit-lake-24270.herokuapp.com/items/#{@item.id}", desc: @item.name) %>
+        <%= link_to "Edit", edit_admin_item_path(@item), class: "btn btn-custom" %>
+        <%= link_to "Delete", admin_item_path(@item), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-custom" %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="reviews">
+        <h1>Reviews</h1>
+        <div class="overflow-auto">
+          <%= render @item.reviews.order("created_at DESC") -%>
+        </div>
+        <div>
+          <% if user_signed_in? && current_user.user? && Review.find_by(user_id: current_user, item_id: @item).blank?%>
+            <p style="font-size: 20px"><i> Add your review</i> </p>
+            <%= simple_form_for([@item, @item.reviews.build]) do |f| %>
+              <div id="rating-form">
+                <label>Rating</label>
+              </div>
+              <%= f.input :comment %>
+              <%= f.button :submit, :class => "btn-custom2" %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $('.review-rating').raty({
+        readOnly: true,
+        score: function() {
+          return $(this).attr('data-score');
+        },
+        path: '/assets/'
+    });
+    $('.average-review-rating').raty({
+        readOnly: true,
+        path: '/assets/',
+        score: function() {
+          return $(this).attr('data-score')
+        }
+    });
+    $('#rating-form').raty({
+        path: '/assets/',
+        scoreName: 'review[rate]'
+    });
+  </script>

@@ -1,0 +1,37 @@
+<div class="heading">
+  <h3>your orders</h3>
+  <p><a href="<%= list_order_path%>"> list order </a></p>
+</div>
+<div id="notifications">
+</div>
+<% if @order.present? %>
+  <section class="orders">
+    <h1 class="title">placed orders</h1>
+    <div class="box-container">
+      <div class="box">
+        <p> placed on : <span><%= @order.created_at %></span></p>
+        <p> name : <span><%= @order.user_name %></span> </p>
+        <p> number : <span><%= @order.user_phone %></span> </p>
+        <p> email : <span><%= @order.user_email %></span> </p>
+        <p> address : <span><%= @order.user_delivery_address %></span></p>
+        <p>your current_orders :
+          <% order_items = OrderItem.where(order_id: @order.id) %>
+          <% order_items.each do |order_item| %>
+            <span>
+              <%= order_item.item.name%>  0<%=order_item.quantity %>
+              (<%= order_item.total %>) - </span>
+          <% end %>
+          <p> total price : <span><%= @order.subtotal %>$/-</span> </p>
+          <p> payment method : <span>cash on delivery</span> </p>
+          <p> status : <span style="color:red;"><%= @order.status %></span>
+          <% if @order.unconfirmed? %>
+            <%= link_to "Cancelled", delete_order_path(@order.id),
+              method: :delete, class: "btn btn"%></p>
+          <% elsif @order.cancelled? %>
+            <%= link_to "Set again", items_path, class:"btn btn" %> </p>
+          <% end %>
+
+        </div>
+      </div>
+  </section>
+<% end %>

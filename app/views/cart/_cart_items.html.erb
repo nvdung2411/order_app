@@ -1,0 +1,30 @@
+<h1 class="title">your cart</h1>
+<div class="cart-total">
+  <p>grand total : <span><%=@order_items.sum(:total) %>$/-</span></p>
+  <a href="<%= items_path %>"class="btn">menu</a>
+  <a href="<%= checkout_path %>"class="btn">checkout orders</a>
+</div>
+<div class="box-container">
+  <% @order_items.each do |order_item| %>
+    <div class="box">
+      <a href="#" class="fas fa-eye"></a>
+      <div class="name"><%= order_item.item.name%></div>
+      <%= image_tag order_item.item.image %>
+      <%= form_with model: order_item, method: :patch do |f|%>
+        <div class="flex">
+          <div class="price">$<%= order_item.item.price %></div>
+          <%= f.hidden_field :item_id, value: order_item.item.id %>
+          <%= f.number_field :quantity, value: order_item.quantity, class:"qty" %>
+          <button type="submit" class="fas fa-edit"></button>
+        </div>
+        <%= link_to "Remove Items", order_item, method: :delete, remote: true %>
+      <% end%>
+      <div class="sub-total">sub total : <%= order_item.total %></div>
+    </div>
+  <% end%>
+</div>
+<% if @order_items.present?%>
+  <div class="more-btn">
+    <%= link_to "Delete_all", delete_all_path, method: :delete, class: 'delete-btn' %>
+  </div>
+<% end %>
