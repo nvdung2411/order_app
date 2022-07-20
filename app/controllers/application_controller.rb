@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
-	require 'will_paginate/array'
+  require "will_paginate/array"
 
   include ApplicationHelper
   before_action :search
@@ -9,14 +11,14 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:phone, :name, :delivery_address])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[phone name delivery_address])
   end
 
   def search
     @search = Item.ransack(params[:q])
   end
 
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(_resource)
     if current_user.admin?
       admin_dashboard_path
     else
@@ -25,11 +27,10 @@ class ApplicationController < ActionController::Base
   end
 
   def current_order
-    if Order.incart.find_by_id(session[:order_id]).nil?
+    if Order.incart.find_by(id: session[:order_id]).nil?
       Order.new
     else
-      Order.find_by_id(session[:order_id])
+      Order.find_by(id: session[:order_id])
     end
   end
-
 end

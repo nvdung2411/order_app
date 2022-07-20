@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CartController < ApplicationController
   include NotificationModule
 
@@ -21,11 +23,12 @@ class CartController < ApplicationController
   end
 
   def order
-    @order =Order.find params[:id]
+    @order = Order.find params[:id]
   end
 
   def list_order
-    @orders = Order.where(user_id: current_user).not_incart.paginate(page: params[:page], per_page: 8).order("created_at DESC")
+    @orders = Order.where(user_id: current_user).not_incart.paginate(page: params[:page],
+                                                                     per_page: 8).order("created_at DESC")
   end
 
   def delete_all
@@ -42,8 +45,8 @@ class CartController < ApplicationController
   end
 
   private
-    def find_order_item
-      @order_items = current_order.order_items
-    end
-end
 
+  def find_order_item
+    @order_items = current_order.order_items
+  end
+end
