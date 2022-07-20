@@ -4,10 +4,10 @@ Rails.application.routes.draw do
 
   resources :order_items
   devise_for :users, controllers: {
-    confirmations: 'confirmations'
+    confirmations: 'confirmations',
+    registrations: 'registrations',
+    sessions: 'sessions'
   }
-
-  mount ActionCable.server => '/cable'
 
   namespace :admin do
     resources :items
@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     get 'confirm_order/:id', to: 'manage#confirm_order', as: 'confirm_order'
     get 'cancel_order/:id', to: 'manage#cancel_order', as: 'cancel_order'
     get 'confirm_all', to: 'manage#confirm_all', as: 'confirm_all'
+    get 'dashboard', to: 'manage#dashboard', as: 'dashboard'
     delete 'destroy_user/:id', to: 'manage#destroy_user', as: 'destroy_user'
   end
 

@@ -20,6 +20,7 @@
       </div>
     </div>
   </div>
+
   <div class="row">
     <div class="col-md-4">
       <div class="reviews">
@@ -28,37 +29,39 @@
           <%= render @item.reviews.order("created_at DESC") -%>
         </div>
         <div>
-          <% if user_signed_in? && current_user.user? && Review.find_by(user_id: current_user, item_id: @item).blank?%>
-            <p style="font-size: 20px"><i> Add your review</i> </p>
-            <%= simple_form_for([@item, @item.reviews.build]) do |f| %>
-              <div id="rating-form">
-                <label>Rating</label>
-              </div>
-              <%= f.input :comment %>
-              <%= f.button :submit, :class => "btn-custom2" %>
-            <% end %>
+          <% if user_signed_in? && current_user.user? && Review.find_by(user_id: current_user,
+            item_id: @item).blank?%>
+          <p style="font-size: 20px"><i> Add your review</i> </p>
+          <%= simple_form_for([@item, @item.reviews.build]) do |f| %>
+            <div id="rating-form">
+              <label>Rating</label>
+            </div>
+            <%= f.input :comment %>
+            <%= f.button :submit, :class => "btn-custom2" %>
           <% end %>
-        </div>
+        <% end %>
       </div>
     </div>
   </div>
-  <script>
-    $('.review-rating').raty({
-        readOnly: true,
-        score: function() {
-          return $(this).attr('data-score');
-        },
-        path: '/assets/'
-    });
-    $('.average-review-rating').raty({
-        readOnly: true,
-        path: '/assets/',
-        score: function() {
-          return $(this).attr('data-score')
-        }
-    });
-    $('#rating-form').raty({
-        path: '/assets/',
-        scoreName: 'review[rate]'
-    });
-  </script>
+</div>
+
+<script>
+  $('.review-rating').raty({
+      readOnly: true,
+      score: function() {
+        return $(this).attr('data-score');
+      },
+      path: '/assets/'
+  });
+  $('.average-review-rating').raty({
+      readOnly: true,
+      path: '/assets/',
+      score: function() {
+        return $(this).attr('data-score')
+      }
+  });
+  $('#rating-form').raty({
+      path: '/assets/',
+      scoreName: 'review[rate]'
+  });
+</script>
