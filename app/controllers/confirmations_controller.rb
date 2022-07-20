@@ -1,8 +1,10 @@
-class ConfirmationsController < Devise::ConfirmationsController
+# frozen_string_literal: true
 
+class ConfirmationsController < Devise::ConfirmationsController
   private
-    def after_confirmation_path_for(resource_name, resource)
-      sign_in(resource)
-      root_path
-    end
+
+  def after_confirmation_path_for(_resource_name, resource)
+    sign_in(resource)
+    root_path
+  end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OrderItem < ApplicationRecord
   belongs_to :item
   belongs_to :order
@@ -5,7 +7,7 @@ class OrderItem < ApplicationRecord
   before_save :set_unit_price
   before_save :set_total
 
-  delegate :name, :email, :phone, :delivery_address, to: :user,  allow_nil: true, prefix: true
+  delegate :name, :email, :phone, :delivery_address, to: :user, allow_nil: true, prefix: true
 
   private
 

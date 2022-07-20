@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class ReviewsController < ApplicationController
   before_action :find_item
-  before_action :find_review, only: [:edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:new, :edit]
+  before_action :find_review, only: %i[edit update destroy]
+  before_action :authenticate_user!, only: %i[new edit]
 
   def new
     @review = Review.new
@@ -15,18 +17,17 @@ class ReviewsController < ApplicationController
     if @review.save
       redirect_to item_path(@item)
     else
-      render 'new'
+      render "new"
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @review.update(review_params)
       redirect_to item_path(@item)
     else
-      render 'edit'
+      render "edit"
     end
   end
 
@@ -37,16 +38,15 @@ class ReviewsController < ApplicationController
 
   private
 
-    def review_params
-      params.require(:review).permit(:rate, :comment)
-    end
+  def review_params
+    params.require(:review).permit(:rate, :comment)
+  end
 
-    def find_item
-      @item = Item.find(params[:item_id])
-    end
+  def find_item
+    @item = Item.find(params[:item_id])
+  end
 
-    def find_review
-      @review = Review.find(params[:id])
-    end
-
+  def find_review
+    @review = Review.find(params[:id])
+  end
 end

@@ -1,10 +1,11 @@
-module ApplicationHelper
+# frozen_string_literal: true
 
+module ApplicationHelper
   def current_order
-    if Order.incart.find_by_id(session[:order_id]).nil?
+    if Order.incart.find_by(id: session[:order_id]).nil?
       Order.new
     else
-      Order.find_by_id(session[:order_id])
+      Order.find_by(id: session[:order_id])
     end
   end
 

@@ -1,59 +1,60 @@
-class Admin::ItemsController < ApplicationController
-  before_action :require_admin
-  before_action :find_item, only: [:show, :edit, :update, :destroy]
-  require "will_paginate/array"
+# frozen_string_literal: true
 
-  def show
-  end
+module Admin
+  class ItemsController < ApplicationController
+    before_action :require_admin
+    before_action :find_item, only: %i[show edit update destroy]
+    require "will_paginate/array"
 
-  def new
-    @item = Item.new
-    @categories = Category.pluck(:name, :id)
-  end
+    def show; end
 
-  def create
-    @item = Item.new(item_params)
-    @categories = Category.pluck(:name, :id)
-    @item.category_id = params[:category_id]
-
-    if @item.save
-      redirect_to root_path
-    else
-      render "new"
+    def new
+      @item = Item.new
+      @categories = Category.pluck(:name, :id)
     end
-  end
 
-  def edit
-    @categories = Category.pluck(:name, :id)
-  end
+    def create
+      @item = Item.new(item_params)
+      @categories = Category.pluck(:name, :id)
+      @item.category_id = params[:category_id]
 
-  def update
-    @item.category_id = params[:item][:category_id]
-    if @item.update(item_params)
-      redirect_to item_path(@item)
-    else
-      render "edit"
+      if @item.save
+        redirect_to root_path
+      else
+        render "new"
+      end
     end
-  end
 
-  def destroy
-    @item.destroy
-    redirect_to root_path
-  end
+    def edit
+      @categories = Category.pluck(:name, :id)
+    end
 
-  private
+    def update
+      @item.category_id = params[:item][:category_id]
+      if @item.update(item_params)
+        redirect_to item_path(@item)
+      else
+        render "edit"
+      end
+    end
 
-  def item_params
-    params.require(:item).permit(:name, :description, :category, :price, :image)
-  end
-
-  def find_item
-    @item = Item.find(params[:id])
-  end
-
-  def require_admin
-    unless current_user.admin?
+    def destroy
+      @item.destroy
       redirect_to root_path
+    end
+
+    private
+
+    def item_params
+      params.require(:item).permit(:name, :description, :category, :price, :image)
+    end
+
+    def find_item
+      @item = Item.find(params[:id])
+    end
+
+    def require_admin
+      redirect_to root_path unless current_user.admin?
     end
   end
 end

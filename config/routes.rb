@@ -1,5 +1,6 @@
-Rails.application.routes.draw do
+# frozen_string_literal: true
 
+Rails.application.routes.draw do
   root 'homepage#home'
 
   resources :order_items
@@ -22,7 +23,7 @@ Rails.application.routes.draw do
     delete 'destroy_user/:id', to: 'manage#destroy_user', as: 'destroy_user'
   end
 
-  resources :items, only: [:index, :show] do
+  resources :items, only: %i[index show] do
     resources :reviews
   end
   get 'home', to: 'homepage#home'
