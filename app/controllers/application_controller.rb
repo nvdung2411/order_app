@@ -16,6 +16,14 @@ class ApplicationController < ActionController::Base
     @search = Item.ransack(params[:q])
   end
 
+  def after_sign_in_path_for(resource)
+    if current_user.admin?
+      admin_dashboard_path
+    else
+      root_path
+    end
+  end
+
   def current_order
     if Order.incart.find_by_id(session[:order_id]).nil?
       Order.new

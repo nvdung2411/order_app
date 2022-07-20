@@ -12,50 +12,54 @@
     <link src="https://cdnjs.cloudflare.com/ajax/libs/raty/3.1.1/jquery.raty.css">
   </head>
   <body>
-    <header class="header">
-      <section class="flex">
-        <a href="<%= home_path  %>" class="logo">Food & Drinks 😋</a>
-        <nav class="navbar">
-          <a href="<%= items_path %>">menu</a>
-          <% if user_signed_in? && current_user.admin? %>
-            <a href="<%= admin_manage_user_path %>">user</a>
-            <a href="<%= admin_order_path  %>">orders</a>
-          <% else %>
-            <a href="<%= about_path %>">about</a>
-            <a href="<%= list_order_path %>">orders</a>
-          <% end %>
-          <a href="#">contact</a>
-          <% if user_signed_in? %>
-            <a><%= link_to "logout", destroy_user_session_path, method: :delete %></a>
-          <% else %>
-            <a><%= link_to "login", new_user_session_path %></a>
-          <% end %>
-        </nav>
-        <div class="form-inline my-2 my-lg-0">
-          <%= search_form_for @search, url: items_path, local: true, method: "get" do |f| %>
-            <form action="Search">
-              <%= f.text_field :name_or_description_cont, class: "form-control mr-sm-2" %>
-              <button type="submit" class="fas fa-search"></button>
-            </form>
-          <% end %>
-        </div>
-        <div class="icons">
-          <% unless user_signed_in? && current_user.admin? %>
-            <a href="<%= cart_path %>">
-              <i class="fas fa-shopping-cart"></i>
-              <span >( <span class="my_cart m-0 b-0" ><%= item_in_cart.size %> </span>)</span>
-            </a>
-          <% end %>
-          <a href="<%= profile_path %>"class="fas fa-user"></a>
-        </div>
-      </section>
-    </header>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% unless hiden_navbar %>
+      <header class="header">
+        <section class="flex">
+          <a href="<%= home_path  %>" class="logo">Food & Drinks 😋</a>
+          <nav class="navbar">
+            <% if current_user&.admin? %>
+              <a href="<%= admin_dashboard_path %>">dashbord</a>
+              <a href="<%= admin_manage_user_path %>">user</a>
+            <% else %>
+              <a href="<%= about_path %>">about</a>
+              <a href="<%= list_order_path %>">orders</a>
+            <% end %>
+            <a href="<%= items_path %>">menu</a>
+            <% if user_signed_in? %>
+              <%= link_to "logout", destroy_user_session_path, method: :delete %>
+            <% else %>
+              <a><%= link_to "login", new_user_session_path %>
+            <% end %>
+          </nav>
+          <div class="form-inline my-2 my-lg-0">
+            <%= search_form_for @search, url: items_path, local: true, method: "get" do |f| %>
+              <form action="Search">
+                <%= f.text_field :name_or_description_cont, class: "form-control mr-sm-2" %>
+                <button type="submit" class="fas fa-search"></button>
+              </form>
+            <% end %>
+          </div>
+          <div class="icons">
+            <% unless current_user&.admin? %>
+              <a href="<%= cart_path %>">
+                <i class="fas fa-shopping-cart"></i>
+                <span >( <span class="my_cart m-0 b-0" ><%= item_in_cart.size %> </span>)</span>
+              </a>
+            <% end %>
+            <a href="<%= profile_path %>"class="fas fa-user"></a>
+          </div>
+        </section>
+      </header>
+    <% end %>
     <p class="alert ajax"><%= alert %></p>
     <% flash.each do |message_type, message| %>
-      <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <div class="alert alert-<%= message_type %>">
+        <% unless message.blank?%>
+          <%= message %></div>
+      <% end %>
     <% end %>
-    <%= yield %>
+    <div style="margin-top: -54px">
+      <%= yield %>
+    </div>
   </body>
 </html>

@@ -11,4 +11,8 @@ module ApplicationHelper
   def item_in_cart
     current_order.order_items
   end
+
+  def hiden_navbar
+    "#{controller_name}/#{action_name}" == "manage/dashboard"
+  end
 end

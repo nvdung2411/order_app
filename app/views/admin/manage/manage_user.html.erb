@@ -1,22 +1,27 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">STT</th>
-      <th scope="col">Create at</th>
-      <th scope="col">Name</th>
-      <th scope="col">Emai</th>
-    </tr>
-  </thead>
-
-  <% @user.each_with_index do |user, index| %>
-    <tbody>
-    <tr>
-      <th scope="row"><%= index + 1 %></th>
-      <td><%= user.created_at %></td>
-      <td><%= user.name %></td>
-      <td><%= user.email %></td>
-      <td><%= link_to "Delete",  admin_destroy_user_path(user.id), method: :delete %></td>
-    </tr>
-    </tbody>
-  <% end %>
-</table>
+<section>
+  <div class = "title">
+    <h1>list users</h1>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">STT</th>
+        <th scope="col">Create at</th>
+        <th scope="col">Name</th>
+        <th scope="col">Emai</th>
+      </tr>
+    </thead>
+    <% @users.each_with_index do |user, index| %>
+      <tbody>
+        <tr>
+          <th scope="row"><%= index + 1 %></th>
+          <td><%= user.created_at %></td>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td><%= link_to "Delete",  admin_destroy_user_path(user.id), method: :delete %></td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+  <%= will_paginate @users %>
+</section>

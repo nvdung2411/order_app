@@ -11,7 +11,7 @@ class Admin::ManageController < ApplicationController
       orders.each do |order|
         create_notification(current_user.id, order.user_id, "confirm_order")
       end
-      redirect_to admin_order_path
+      redirect_to admin_dashboard_path
     end
   end
 
@@ -19,7 +19,7 @@ class Admin::ManageController < ApplicationController
     order = Order.find params[:id]
     if order.update(status: :confirmed)
       create_notification(current_user.id, order.user_id, "confirm_order")
-      redirect_to admin_order_path
+      redirect_to admin_dashboard_path
     end
   end
 
@@ -27,7 +27,7 @@ class Admin::ManageController < ApplicationController
     order = Order.find params[:id]
     if order.update(status: :cancelled)
       create_notification(current_user.id, order.user_id, "cancel_order")
-      redirect_to admin_order_path
+      redirect_to admin_dashboard_path
     end
   end
 
@@ -50,13 +50,17 @@ class Admin::ManageController < ApplicationController
   end
 
   def manage_user
-    @user = User.select {|user| user.admin! }
+    @users = User.user.paginate(page: params[:page], per_page: 6).order("created_at DESC")
   end
 
   def destroy_user
     user =User.find(params[:id])
     user.destroy
     redirect_to admin_manage_user_path
+  end
+
+  def dashboard
+    @orders = Order.where(status: :unconfirmed).paginate(page: params[:page], per_page: 8).order("created_at DESC")
   end
 end
 

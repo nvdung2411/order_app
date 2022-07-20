@@ -1,7 +1,6 @@
 <section class="home">
   <div class="swiper home-slider">
     <div class="swiper-wrapper">
-
       <div class="swiper-slide slide">
         <div class="content">
           <span>order online</span>
@@ -12,7 +11,6 @@
           <%= image_tag("home-img-3.png", alt: "") %>
         </div>
       </div>
-
       <div class="swiper-slide slide">
         <div class="content">
           <span>order online</span>
@@ -23,7 +21,6 @@
           <%= image_tag("home-img-1.png", alt: "") %>
         </div>
       </div>
-
       <div class="swiper-slide slide">
         <div class="content">
           <span>order online</span>
@@ -38,7 +35,6 @@
     <div class="swiper-pagination"></div>
   </div>
 </section>
-
 <!-- category -->
 <section class="category">
   <h1 class="title">food category</h1>
@@ -63,7 +59,6 @@
     </a>
   </div>
 </section>
-
 <section class="products">
   <h1 class="title">latest dishes</h1>
   <div class="box-container">
@@ -97,23 +92,8 @@
     <a href="<%=  items_path %>" class="btn">veiw all</a>
   </div>
 </section>
-
 <%= render 'items/footer' %>
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 <script>
-  var swiper = new Swiper(".home-slider", {
-    loop:true,
-    grabCursor:true,
-    effect: "flip",
-    pagination: {
-    el: ".swiper-pagination",
-    clickable:true,
-  },
-  });
-
-  $(".custom_add_to_cart").on('click', function(){
-    const my_cart = $(".icons .my_cart")[0].innerHTML
-    $(".icons .my_cart")[0].innerHTML = parseInt(my_cart) + 1
-    console.log(my_cart)
-  })
+  <%= render 'home.js' %>
 </script>
