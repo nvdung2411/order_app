@@ -51,17 +51,17 @@
       score: function() {
         return $(this).attr('data-score');
       },
-      path: '/assets/'
+      path: '/'
   });
   $('.average-review-rating').raty({
       readOnly: true,
-      path: '/assets/',
+      path: '/',
       score: function() {
         return $(this).attr('data-score')
       }
   });
   $('#rating-form').raty({
-      path: '/assets/',
+      path: '/',
       scoreName: 'review[rate]'
   });
 </script>
