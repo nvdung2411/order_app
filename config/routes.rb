@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     get 'cancel_order/:id', to: 'manage#cancel_order', as: 'cancel_order'
     get 'confirm_all', to: 'manage#confirm_all', as: 'confirm_all'
     get 'dashboard', to: 'manage#dashboard', as: 'dashboard'
+    get 'list_order', to: 'manage#list_order'
     delete 'destroy_user/:id', to: 'manage#destroy_user', as: 'destroy_user'
   end
 
