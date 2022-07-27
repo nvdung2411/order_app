@@ -23,12 +23,12 @@
           <% end %>
           <p> total price : <span><%= @order.subtotal %>$/-</span> </p>
           <p> payment method : <span>cash on delivery</span> </p>
-          <p> status : <span style="color:red;"><%= @order.status %></span>
+          <p> status : <span style="color:red;" id="order_status_text"><%= @order.status %></span>
           <% if @order.unconfirmed? %>
             <%= link_to "Cancelled", delete_order_path(@order.id),
-              method: :delete, class: "btn btn"%></p>
+              method: :delete, class: "btn btn_cancel"%></p>
           <% elsif @order.cancelled? %>
-            <%= link_to "Set again", items_path, class:"btn btn" %> </p>
+            <%= link_to "Set again", items_path, class:"btn btn" %></p>
           <% end %>
 
         </div>

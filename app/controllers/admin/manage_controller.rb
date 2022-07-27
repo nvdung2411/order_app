@@ -64,6 +64,11 @@ module Admin
 
     def dashboard
       @orders = Order.where(status: :unconfirmed).paginate(page: params[:page], per_page: 8).order("created_at DESC")
+
+      respond_to do |format|
+        format.html
+        format.js
+      end
     end
 
     def list_order

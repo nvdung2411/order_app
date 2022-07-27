@@ -29,37 +29,37 @@
               <%= link_to "logout", destroy_user_session_path, method: :delete %>
             <% else %>
               <a><%= link_to "login", new_user_session_path %>
-            <% end %>
-          </nav>
-          <div class="form-inline my-2 my-lg-0">
-            <%= search_form_for @search, url: items_path, local: true, method: "get" do |f| %>
-              <form action="Search">
-                <%= f.text_field :name_or_description_cont, class: "form-control mr-sm-2" %>
-                <button type="submit" class="fas fa-search"></button>
-              </form>
-            <% end %>
-          </div>
-          <div class="icons">
-            <% unless current_user&.admin? %>
-              <a href="<%= cart_path %>">
-                <i class="fas fa-shopping-cart"></i>
-                <span >( <span class="my_cart m-0 b-0" ><%= item_in_cart.size %> </span>)</span>
-              </a>
-            <% end %>
-            <a href="<%= profile_path %>"class="fas fa-user"></a>
-          </div>
-        </section>
-      </header>
-    <% end %>
-    <p class="alert ajax"><%= alert %></p>
-    <% flash.each do |message_type, message| %>
-      <div class="alert alert-<%= message_type %>">
-        <% unless message.blank?%>
-          <%= message %></div>
+              <% end %>
+            </nav>
+            <div class="form-inline my-2 my-lg-0">
+              <%= search_form_for @search, url: items_path, local: true, method: "get" do |f| %>
+                <form action="Search">
+                  <%= f.text_field :name_or_description_cont, class: "form-control mr-sm-2" %>
+                  <button type="submit" class="fas fa-search"></button>
+                </form>
+              <% end %>
+            </div>
+            <div class="icons">
+              <% unless current_user&.admin? %>
+                <a href="<%= cart_path %>">
+                  <i class="fas fa-shopping-cart"></i>
+                  <span >( <span class="my_cart m-0 b-0" ><%= item_in_cart.size %> </span>)</span>
+                </a>
+              <% end %>
+              <a href="<%= profile_path %>"class="fas fa-user"></a>
+            </div>
+          </section>
+        </header>
       <% end %>
-    <% end %>
-    <div style="margin-top: -54px">
-      <%= yield %>
-    </div>
-  </body>
-</html>
+      <p class="alert ajax"><%= alert %></p>
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>">
+          <% unless message.blank?%>
+            <%= message %></div>
+        <% end %>
+      <% end %>
+      <div style="margin-top: -54px">
+        <%= yield %>
+      </div>
+    </body>
+  </html>
