@@ -7,7 +7,6 @@ class Ability
 
     return if user.blank?
 
-    can :read, Item, user_id: user.id
     can :manage, :all if user.admin?
   end
 end

@@ -1,13 +1,35 @@
 <% if ['confirm_order', 'confirm_all', 'confirm_multiple'].include?(notification.action) %>
   <div class="alert alert-success" role="alert">
-    Your order has been confirmed. Please reload!
+    Your order has been confirmed.
   </div>
+  <script>
+    $('#order_status_text').html("Confirmed");
+    $('.btn_cancel').css('display', 'none');
+  </script>
+
 <% elsif  ['cancel_order', 'cancel_multiple'].include?(notification.action) %>
   <div class="alert alert-warning" role="alert">
     Your order is declined!
   </div>
+  <script>
+    $('.btn_cancel').css('display', 'none');
+    $('#order_status_text').html("cancelled");
+    var setAgainBtn = document.createElement('a');
+    $(setAgainBtn).attr('href', "<%= items_path %>");
+    $(setAgainBtn).addClass('btn');
+    $(setAgainBtn).css('margin-left', '10px');
+    $(setAgainBtn).html('Set again');
+    $('#order_status_text').after(setAgainBtn);
+  </script>
 <% elsif notification.action == 'update_status'%>
   <div class="alert alert-danger" role="alert">
-    New orders. Please reload and confirm!
+    New orders. Please confirm!
   </div>
+<script>
+  $.ajax({
+    type: 'get',
+    dataType: 'script',
+    url: '/admin/dashboard'
+  });
+</script>
 <% end %>

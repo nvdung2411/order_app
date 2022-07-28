@@ -1,0 +1,50 @@
+<div class="col-12 tm-block-col dashboard-table">
+  <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+    <h2 class="tm-block-title" style="font-size: 20px">
+      Orders List   (<%= link_to "Confirm All", admin_confirm_all_path , style:"color:#FF8C00"%>)</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Placed on</th>
+          <th scope="col">Name</th>
+          <th scope="col">Phone</th>
+          <th scope="col">Delivery Address</th>
+          <th scope="col">Items</th>
+          <th scope="col">Status</th>
+          <th scope="col">Action</th>
+          <th scope="col">
+            <a class='confirm-cancel' onclick="deleteOrders('confirm_multiple')"style="color:#FFA500;" >Confirm</a> /
+            <a class='confirm-cancel' onclick="deleteOrders('cancel_multiple')" style="color:#FFA500;">Cancel</a>
+          </th>
+        </tr>
+      </thead>
+      <% orders.each do |order| %>
+        <tbody>
+          <tr>
+            <td><%= order.created_at %></td>
+            <td><%= order.user_name %></td>
+            <td><%= order.user_phone %></td>
+            <td><%= order.user_delivery_address %></td>
+            <% order_items = OrderItem.where(order_id: order.id) %>
+            <td><span>
+                <% order_items.each do |order_item| %>
+                  <%= order_item.item.name %> 0<%= order_item.quantity %>
+                  (<%= order_item.total %>) -
+                <% end %>
+              </span></td>
+            <td>
+              <div class="tm-status-circle pending"></div>
+              <%= order.status %></td>
+            <td>
+              <%= link_to "Confirm", admin_confirm_order_path(order.id), style:"color:#FFD700"%> /
+              <%= link_to "Cancel", admin_cancel_order_path(order.id), style:"color:#FFD700" %>
+            </td>
+            <td>
+              <input type="checkbox" class="order-checkbox" data-order_id='<%= order.id %>'>
+            </td>
+          </tr>
+        </tbody>
+      <% end %>
+    </table>
+  </div>
+</div>

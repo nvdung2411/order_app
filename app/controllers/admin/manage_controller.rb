@@ -5,7 +5,7 @@ module Admin
     include NotificationModule
 
     def order
-      @orders = Order.where(status: :unconfirmed).paginate(page: params[:page], per_page: 8).order("created_at DESC")
+      @orders = Order.where(status: :unconfirmed).order("created_at DESC")
     end
 
     def confirm_all
@@ -64,6 +64,15 @@ module Admin
 
     def dashboard
       @orders = Order.where(status: :unconfirmed).paginate(page: params[:page], per_page: 8).order("created_at DESC")
+
+      respond_to do |format|
+        format.html
+        format.js
+      end
+    end
+
+    def list_order
+      @orders = Order.where(status: :confirmed).paginate(page: params[:page], per_page: 8).order("created_at DESC")
     end
   end
 end

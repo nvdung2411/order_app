@@ -18,11 +18,3 @@ function deleteOrders(action) {
     window.location.reload();
   }, 50);
 }
-$('input.order-checkbox').on("click", function () {
-  if ($(this).is(':checked')) {
-    $('.confirm-cancel').css("pointer-events", 'auto');
-  } else {
-    $('.confirm-cancel').css("pointer-events", 'none');
-  }
-});
-
